@@ -8,50 +8,49 @@ const opsArray = ['add', 'subtract', 'multiply', 'divide'];
 let num1 = 0;
 let num2 = 0;
 let operator = '';
+let receivedNum2 = false;
+let result = 0;
 
-const add = function(num1, num2) {
-	return num1 + num2
-};
-
-const subtract = function(num1, num2) {
-    return num1 - num2;
-};
-
-const multiply = function(num1, num2) {
-    return num1 * num2;
-};
-
-const divide = function(num1, num2) {
-    if (num2 === 0) {
-        alert('Snarky message')
-    } else {
-        return num1 / num2
-    }
-};
 
 function operate (num1, num2, operator) {
-    if (operator === 'add') {
-        return add(num1, num2);
+    if (operator === 'equals') {
+        return num2;
+    } else if (operator === 'add') {
+        return num1 + num2;
     } else if (operator === 'subtract') {
-        return subtract(num1, num2);
+        return num1 - num2;
     } else if (operator === 'multiply') {
-        return multiply(num1, num2);
+        return num1 * num2;
     } else if (operator === 'divide') {
-        return divide(num1, num2);
+        if (num2 === 0) {
+            alert("Snarky message");
+        } else {
+            return num1 / num2;
+        }
     }
 }
 
+function addDecimal(decimal) {
+	// if (!receivedNum2 || ) return;
+	if (!display.textContent.includes('.')) {
+		display.textContent += '.';
+	}
+}
+
 function displayNum (element) {   
-    display.textContent += element;
+    if (display.textContent === '0' || receivedNum2) {
+        display.textContent = element;
+    } else {
+        display.textContent += element;
+    }
 }
 
 function changeDisplay(element) {
     if (num1 === 0) {
         num1 = Number(display.textContent);
-        display.textContent = '';
+        receivedNum2 = true;
     } else {
         num2 = Number(display.textContent);
-        display.textContent = '';
         result = operate(num1, num2, operator);
         num1 = result;
         let numStr = result.toString();
@@ -74,8 +73,10 @@ operators.forEach((operator) => {
 })
 
 clear.addEventListener('click', () => {
-    display.textContent = '';
+    display.textContent = '0';
     num1 = 0;
     num2 = 0;
     operator = '';
+    receivedNum2 = false;
+    result = 0;
 });
