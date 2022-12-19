@@ -43,11 +43,13 @@ function displayNum (element) {
 function changeDisplay(element) {
     if (num1 === 0) {
         num1 = Number(display.textContent);
+        console.log(num1);
         receivedNum2 = true;
     } else {
         num2 = Number(display.textContent);
+        console.log(num2);
         result = operate(num1, num2, operator);
-        display.textContent = result.toString;
+        display.textContent = result.toString();
     }
     operator = element.id;
 }
